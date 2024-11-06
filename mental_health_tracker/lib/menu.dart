@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:mental_health_tracker/widgets/left_drawer.dart';
+import 'package:mental_health_tracker/moodentry_form.dart';
 
 class MyHomePage extends StatelessWidget {
   final String npm = '2306221970'; // NPM
   final String name = 'Arya Gilang Prasetya'; // Nama
   final String className = 'PBP F'; // Kelas
-  final List<ItemHomepage> items = [
-         ItemHomepage("Lihat Mood", Icons.mood),
-         ItemHomepage("Tambah Mood", Icons.add),
-         ItemHomepage("Logout", Icons.logout),
-     ];
   MyHomePage({super.key});
+
+  final List<ItemHomepage> items = [
+    ItemHomepage("Lihat Mood", Icons.mood),
+    ItemHomepage("Tambah Mood", Icons.add),
+    ItemHomepage("Logout", Icons.logout),
+    ];
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +30,10 @@ class MyHomePage extends StatelessWidget {
         ),
         // Warna latar belakang AppBar diambil dari skema warna tema aplikasi.
         backgroundColor: Theme.of(context).colorScheme.primary,
+        iconTheme: const IconThemeData(color: Colors.white),
       ),
+      drawer: const LeftDrawer(),
+
       // Body halaman dengan padding di sekelilingnya.
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -91,6 +97,7 @@ class MyHomePage extends StatelessWidget {
   }
 }
 
+
 class InfoCard extends StatelessWidget {
   // Kartu informasi yang menampilkan title dan content.
 
@@ -125,11 +132,11 @@ class InfoCard extends StatelessWidget {
 }
 
 class ItemHomepage {
-     final String name;
-     final IconData icon;
+    final String name;
+    final IconData icon;
 
-     ItemHomepage(this.name, this.icon);
- }
+    ItemHomepage(this.name, this.icon);
+}
 
 class ItemCard extends StatelessWidget {
   // Menampilkan kartu dengan ikon dan nama.
@@ -155,6 +162,11 @@ class ItemCard extends StatelessWidget {
             ..showSnackBar(
               SnackBar(content: Text("Kamu telah menekan tombol ${item.name}!"))
             );
+            if (item.name == "Tambah Mood") {
+              // TODO: Gunakan Navigator.push untuk melakukan navigasi ke MaterialPageRoute yang mencakup TrackerFormPage.
+              Navigator.push(context,
+                MaterialPageRoute(builder: (context) => const MoodEntryFormPage()));
+            }
         },
         // Container untuk menyimpan Icon dan Text
         child: Container(
